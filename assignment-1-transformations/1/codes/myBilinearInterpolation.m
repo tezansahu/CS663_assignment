@@ -5,12 +5,12 @@ function [newImg] = bilinearInterpolation(im)
     out_rows = 3*in_rows - 2;
     out_cols = 2*in_cols - 1;
       
-    r_scale = in_rows / out_rows;
-    c_scale = in_cols / out_cols;
+    r_scale = out_rows / in_rows;
+    c_scale = out_cols / in_cols;
 
     [cf, rf] = meshgrid(1 : out_cols, 1 : out_rows);
-    rf = rf * r_scale;
-    cf = cf * c_scale;
+    rf = rf / r_scale;
+    cf = cf / c_scale;
 
     r = floor(rf);
     c = floor(cf);
@@ -28,8 +28,8 @@ function [newImg] = bilinearInterpolation(im)
     in3_ind = sub2ind([in_rows, in_cols], r, c+1);
     in4_ind = sub2ind([in_rows, in_cols], r+1, c+1);       
 
-    im = double(im);
-    tmp = im(in1_ind).*(1 - del_R).*(1 - del_C) + im(in2_ind).*(del_R).*(1 - del_C) + im(in3_ind).*(1 - del_R).*(del_C) + im(in4_ind).*(del_R).*(del_C);
+    im_double = double(im);
+    tmp = im_double(in1_ind).*(1 - del_R).*(1 - del_C) + im_double(in2_ind).*(del_R).*(1 - del_C) + im_double(in3_ind).*(1 - del_R).*(del_C) + im_double(in4_ind).*(del_R).*(del_C);
     newImg = cast(tmp, class(im));
 
 endfunction
