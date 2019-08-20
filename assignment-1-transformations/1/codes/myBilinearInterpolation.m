@@ -1,4 +1,4 @@
-function [newImg] = bilinearInterpolation(im)
+function [newImg] = myBilinearInterpolation(im)
 
     in_rows = size(im)(1);
     in_cols = size(im)(2);
