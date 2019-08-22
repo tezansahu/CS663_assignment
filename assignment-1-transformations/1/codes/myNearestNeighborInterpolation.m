@@ -1,6 +1,6 @@
 function [newImg] = myNearestNeighborInterpolation(img)
-    in_rows = size(img)(1);
-    in_cols = size(img)(2);
+    in_rows = size(img, 1);
+    in_cols = size(img, 2);
     out_rows = 3*in_rows - 2;
     out_cols = 2*in_cols - 1;
     
@@ -19,4 +19,4 @@ function [newImg] = myNearestNeighborInterpolation(img)
     
     newImgIndices = sub2ind([in_rows, in_cols], r, c);
     newImg = img(newImgIndices);
- endfunction
+end

@@ -1,7 +1,7 @@
-function [newImg] = myBilinearInterpolation(im)
+function [newImg] = myBilinearInterpolation(img)
 
-    in_rows = size(im)(1);
-    in_cols = size(im)(2);
+    in_rows = size(img, 1);
+    in_cols = size(img, 2);
     out_rows = 3*in_rows - 2;
     out_cols = 2*in_cols - 1;
       
@@ -28,8 +28,8 @@ function [newImg] = myBilinearInterpolation(im)
     in3_ind = sub2ind([in_rows, in_cols], r, c+1);
     in4_ind = sub2ind([in_rows, in_cols], r+1, c+1);       
 
-    im_double = double(im);
+    im_double = double(img);
     tmp = im_double(in1_ind).*(1 - del_R).*(1 - del_C) + im_double(in2_ind).*(del_R).*(1 - del_C) + im_double(in3_ind).*(1 - del_R).*(del_C) + im_double(in4_ind).*(del_R).*(del_C);
-    newImg = cast(tmp, class(im));
+    newImg = cast(tmp, class(img));
 
-endfunction
+end

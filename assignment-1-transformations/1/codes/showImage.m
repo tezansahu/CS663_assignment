@@ -1,4 +1,4 @@
-function showImage(img, head= "", myNumOfColors = 200)
+function showImage(img, head, myNumOfColors)
   myColorScale = [ [0:1/(myNumOfColors-1):1]' ,[0:1/(myNumOfColors-1):1]', [0:1/(myNumOfColors-1):1]'];
   cmap = colormap(myColorScale);
   colormap gray;
@@ -7,4 +7,4 @@ function showImage(img, head= "", myNumOfColors = 200)
   axis on;
   colorbar;
   title(head);
-endfunction
+end
