@@ -50,8 +50,19 @@ for i=1:length(images)
     subplot(1,2,2), showImage(myCLAHE(img, windowsizesmall, cliplimit), "Smaller Window Size 5x5", 200);
     pause(2);
     subplot(1,2,1), showImage(myCLAHE(img, windowsize, cliplimit), "CLAHE Enhanced Image with Initial Clip Limit", 200);
-    subplot(1,2,2), showImage(myCLAHE(img, windowsize, cliplimit/2), "CLAHE Enhanced Image with Clip Limit Halved", 200);
+    subplot(1,2,2), showImage(myCLAHE(img, windowsize, cliplimit/2), "Clip Limit ", 200);
     pause(2);
 end
+    
+
+[mask, masked_image] = myForegroundMask(img);
+subplot(1,3,1), showImage(img, "Original Image", 200);
+subplot(1,3,2), showImage(mask, "Binary Mask", 200);
+subplot(1,3,3), showImage(masked_image, "Masked Image", 200);
+cd ../images/;
+save mask.mat mask;
+save masked_image.mat masked_image;
+cd ../codes;
+pause(2);
 toc;
 toc;
