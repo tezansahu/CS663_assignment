@@ -4,8 +4,8 @@ function [newImg] = myLinearContrastStretching(img, mask)
   newImg = img;
   for i=1:1:chan 
     img_chan = img(:,:,i);
-    minI = min(min(img_chan(mask ==1)));
-    maxI = max(max(img_chan(mask ==1)));
+    minI = min(img_chan(mask ==1));
+    maxI = max(img_chan(mask ==1));
     newImg(:,:,i) = mask .* (img_chan - minI) * ((255 - 0) / (maxI - minI));
   end
 endfunction;
