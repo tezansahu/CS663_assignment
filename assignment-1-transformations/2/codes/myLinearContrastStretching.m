@@ -5,5 +5,5 @@ function [newImg] = myLinearContrastStretching(img)
     minI = min(min(img(:,:,i)));
     maxI = max(max(img(:,:,i)));
     newImg(:,:,i) = (img(:,:,i) - minI) * ((255 - 0) / (maxI - minI));
-  endfor;
+  end
 endfunction;
