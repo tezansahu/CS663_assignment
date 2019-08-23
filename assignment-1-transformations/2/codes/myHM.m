@@ -12,4 +12,4 @@ function [newImg] = myHM(img, imgMask, ref, refMask)
     newImg(:, :, i) = new_chan;
   end
   newImg(imgMask == 0) = 0;
-endfunction
+end
