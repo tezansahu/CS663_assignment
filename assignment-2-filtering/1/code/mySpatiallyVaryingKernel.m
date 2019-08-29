@@ -1,14 +1,18 @@
-function [newImg] = mySpatiallyVaryingKernel(img, d_thres)
+function [D, img_mask, bg_mask, newImg] = mySpatiallyVaryingKernel(img, d_thres)
 %MYSPATIALLYVARYINGKERNEL Summary of this function goes here
 %   Detailed explanation goes here
 chan = size(img, 3);
 img = im2double(img);
 newImg = double(img);
 img_g = rgb2gray(img);
+% img_mask = double(img_g);
+% bg_mask = double(img_g);
 
 mask = zeros(size(img_g));
-row = 225;
-col = 405;
+% row = 225;
+% col = 405;
+row = round(size(img_g,1)*0.4);
+col = round(size(img_g,2)*0.4);
 mask(row:end-row, col:end-col) = 1;
 %     imshow(mask)
 %     title('Initial Contour Location')
@@ -39,8 +43,8 @@ for i=1:1:chan
 %                 class(H_local)
 %                 size(H_local)
 %                 pause(2)
-                rows = round(mod((floor(D_row-d_local)-1:ceil(D_row+d_local)-1),size(D,1))+1);
-                cols = round(mod((floor(D_col-d_local)-1:ceil(D_col+d_local)-1),size(D,2))+1);
+                rows = round(mod( floor(D_row-d_local)-1:ceil(D_row+d_local)-1 ,size(D,1) )+1);
+                cols = round(mod( floor(D_col-d_local)-1:ceil(D_col+d_local)-1 ,size(D,2) )+1);
                 A = img(rows, cols, i);
 %                 class(A)
 %                 size(A)
@@ -50,7 +54,7 @@ for i=1:1:chan
     end
 end
 
-    imshow(newImg)
-    title('Masked Blur')
-    pause(1)
+%     imshow(newImg)
+%     title('Masked Blur')
+%     pause(1)
 
