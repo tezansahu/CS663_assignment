@@ -32,7 +32,6 @@ pause(2);
 close;
 
 contour(flipud(D), 'ShowText', 'on');
-saveas(gcf, '../images/bird_contour.png');
 pause(2);
 
 fspecial('disk', round(0.2*d_thres))
@@ -77,7 +76,7 @@ pause(2);
 close;
 
 contour(flipud(D), 'ShowText', 'on');
-saveas(gcf, '../images/flower_contour.png');
+saveas(gcf,
 pause(2);
 
 fspecial('disk', round(0.2*d_thres))
