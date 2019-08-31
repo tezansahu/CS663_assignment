@@ -34,7 +34,7 @@ function filtered_img = myBilateralFiltering(img, window, sigma_space, sigma_int
             
             
         end
-        waitbar(1/double(size(img,1)));
+        waitbar(i/double(size(img,1)));
     end
     close(wait);
 end

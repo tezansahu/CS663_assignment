@@ -1,4 +1,4 @@
-function filtered_img = myPatchBasedFiltering(img, sigma_s, sigma_i)
+function filtered_img = myPatchBasedFiltering(img, sigma_i)
     filtered_img = double(zeros(size(img,1), size(img,2)));
     % disp(filtered_img);
     window = 25;
@@ -6,11 +6,12 @@ function filtered_img = myPatchBasedFiltering(img, sigma_s, sigma_i)
     wait = waitbar(0, "Patch-Based Filtering in Progress");
     
     % define the gaussian mask to make patches isotropic
-    sigma = 2;
+    sigma = 0.5;
     [x,y] = meshgrid(-floor(patch_size/2):floor(patch_size/2), -floor(patch_size/2):floor(patch_size/2));
     G_p = exp(-(x.^2 + y.^2)/(2*sigma^2));
     
     % define the spatial gaussian mask to be used on the window
+    sigma_s = 0.5;
     [x,y] = meshgrid(-floor(window/2):floor(window/2), -floor(window/2):floor(window/2));
     G_s = exp(-(x.^2 + y.^2)/(2*sigma_s^2));
     
