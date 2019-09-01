@@ -30,6 +30,7 @@ blurred = imfilter(img, H, 'replicate'); % Convolves
 %     title('Blurred Image')
 %     pause(1)
 
+wait = waitbar(0, "Spatially Varying Filter in progress");
 for i=1:1:chan
     newImg(:,:,i) = zeros(size(img_mask));
     newImg(:,:,i) = immultiply(img_mask, img(:,:,i));
@@ -51,9 +52,10 @@ for i=1:1:chan
                 newImg(D_row, D_col,i)= sum(sum(immultiply(H_local,A)));
             end
         end
+        waitbar(double(i-1)/double(chan) + (double(D_row))/(3 * double(size(D, 1)))); 
     end
 end
-
+close(wait)
 %     imshow(newImg)
 %     title('Masked Blur')
 %     pause(1)
