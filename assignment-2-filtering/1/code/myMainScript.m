@@ -2,13 +2,23 @@
 
 tic;
 %% Your code here
-flower = imread('../data/flower.jpg');
+
 bird = imread('../data/bird.jpg');
+scaling = 0.4;
+bird = imresize(bird, scaling);
+flower = imread('../data/flower.jpg');
+scaling2 = 0.7;
+flower = imresize(flower, scaling2);
 
-
+tic;
 %% For bird ->
 d_thres = 40;
-[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(bird, d_thres);
+r_min = round(75*scaling);
+r_max = round(650*scaling);
+c_min = round(230*scaling);
+c_max = round(770*scaling);
+threshold = 180;
+[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(bird, d_thres, r_min, r_max, c_min, c_max, threshold);
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
@@ -57,10 +67,16 @@ color(img);
 title('Spatially varying blurred image');
 % imwrite(img, '../images/bird_blurred.png');
 % pause(2);
+toc;
 
 %% For flower ->
 d_thres = 20;
-[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(flower, d_thres);
+r_min = round(65*scaling2);
+r_max = round(215*scaling2);
+c_min = round(150*scaling2);
+c_max = round(280*scaling2);
+threshold = 100;
+[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(flower, d_thres, r_min, r_max, c_min, c_max, threshold);
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
