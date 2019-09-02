@@ -60,3 +60,11 @@ subplot(1,3,3);
 greyscale(img_filtered);
 title('Filtered Image');
 toc;
+
+%% Show mask used to make patches isotropic 
+figure(4);
+patch_size = 9;
+sigma = 4/3;
+[x,y] = meshgrid(-floor(patch_size/2):floor(patch_size/2), -floor(patch_size/2):floor(patch_size/2));
+G_p = exp(-(x.^2 + y.^2)/(2*sigma^2));
+greyscale(G_p);
