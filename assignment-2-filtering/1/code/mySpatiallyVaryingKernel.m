@@ -1,4 +1,4 @@
-function [D, img_mask, bg_mask, newImg] = mySpatiallyVaryingKernel(img, d_thres, r_min, r_max, c_min, c_max)
+function [D, img_mask, bg_mask, newImg] = mySpatiallyVaryingKernel(img, d_thres, r_min, r_max, c_min, c_max, threshold)
 %MYSPATIALLYVARYINGKERNEL Summary of this function goes here
 %   Detailed explanation goes here
 chan = size(img, 3);
@@ -26,7 +26,7 @@ snippet_mask = snippet;
 snippet = medfilt2(medfilt2(snippet));
 
 snippet = myHE(snippet, ones(size(snippet)));
-threshold = 100;
+% threshold = 100 and 180;
 snippet_mask(snippet < threshold) = 0;
 snippet_mask(snippet >= threshold) = 255;
 img_mask(r_min:r_max, c_min:c_max) = snippet_mask;
@@ -86,5 +86,4 @@ for i=1:1:chan
         waitbar(double(i-1)/double(chan) + (double(D_row))/(3 * double(size(D, 1)))); 
     end
 end
-
 end
