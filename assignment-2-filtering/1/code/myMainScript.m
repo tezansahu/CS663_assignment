@@ -7,7 +7,11 @@ bird = imread('../data/bird.jpg');
 
 % For bird ->
 d_thres = 40;
-[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(bird, d_thres);
+r_min = 65;
+r_max = 215;
+c_min = 150;
+c_max = 280;
+[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(bird, d_thres, r_min, r_max, c_min, c_max);
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
@@ -53,7 +57,11 @@ pause(2);
 
 % For flower ->
 d_thres = 20;
-[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(flower, d_thres);
+r_min = 75;
+r_max = 650;
+c_min = 230;
+c_max = 770;
+[D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(flower, d_thres, r_min, r_max, c_min, c_max);
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
