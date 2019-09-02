@@ -19,17 +19,18 @@ c_min = round(230*scaling);
 c_max = round(770*scaling);
 threshold = 180;
 [D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(bird, d_thres, r_min, r_max, c_min, c_max, threshold);
+img_mask = double(img_mask)/255;
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
 for i=1:chan
-   foreground(:,:,i) = immultiply(img_mask, img(:,:,i));
-   background(:,:,i) = immultiply(bg_mask, img(:,:,i));
+   foreground(:,:,i) = immultiply(img_mask, double(bird(:,:,i))/255);
+   background(:,:,i) = immultiply(double(bg_mask), double(bird(:,:,i))/255);
 end
 
 figure(1);
 subplot(1,3,1);
-color(img_mask);
+greyscale(img_mask);
 title('a) Mask M');
 subplot(1,3,2);
 color(foreground);
@@ -46,29 +47,45 @@ title('c) Background');
 
 figure(2);
 contour(flipud(D), 'ShowText', 'on');
+title("Variation of Disk Radius");
 % saveas(gcf, '../images/bird_contour.png');
 % pause(2);
 
-%figure(3);
+figure(3);
 % Need to display these...
-% fspecial('disk', round(0.2*d_thres))
+subplot(2,3,1);
+greyscale(fspecial('disk', round(0.2*d_thres)));
+title("Kernel at 0.2 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.4*d_thres))
+subplot(2,3,2);
+greyscale(fspecial('disk', round(0.4*d_thres)));
+title("Kernel at 0.4 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.6*d_thres))
+subplot(2,3,3);
+greyscale(fspecial('disk', round(0.6*d_thres)));
+title("Kernel at 0.6 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.8*d_thres))
+subplot(2,3,4);
+greyscale(fspecial('disk', round(0.8*d_thres)));
+title("Kernel at 0.8 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(d_thres))
+subplot(2,3,6);
+greyscale(fspecial('disk', round(d_thres)));
+title("Kernel at d_{thresh}");
 % pause(2);
 
 figure(4);
+subplot(1,2,1);
+color(bird);
+title("Original Image");
+subplot(1,2,2);
 color(img);
 title('Spatially varying blurred image');
 % imwrite(img, '../images/bird_blurred.png');
 % pause(2);
 toc;
 
+tic;
 %% For flower ->
 d_thres = 20;
 r_min = round(65*scaling2);
@@ -77,16 +94,17 @@ c_min = round(150*scaling2);
 c_max = round(280*scaling2);
 threshold = 100;
 [D, img_mask, bg_mask, img] = mySpatiallyVaryingKernel(flower, d_thres, r_min, r_max, c_min, c_max, threshold);
+img_mask = double(img_mask)/255;
 foreground = double(img);
 background = double(img);
 chan = size(img, 3);
 for i=1:chan
-   foreground(:,:,i) = immultiply(img_mask, img(:,:,i));
-   background(:,:,i) = immultiply(bg_mask, img(:,:,i));
+   foreground(:,:,i) = immultiply(img_mask, double(flower(:,:,i))/255);
+   background(:,:,i) = immultiply(double(bg_mask), double(flower(:,:,i))/255);
 end
 figure(5);
 subplot(1,3,1);
-color(img_mask);
+greyscale(img_mask);
 title('a) Mask M');
 subplot(1,3,2);
 color(foreground);
@@ -102,22 +120,37 @@ title('c) Background');
 
 figure(6);
 contour(flipud(D), 'ShowText', 'on');
+title("Variation of Disk Radius");
 % saveas(gcf, '../images/flower_contour.png');
 % pause(2);
 
-% figure(7)
-% fspecial('disk', round(0.2*d_thres))
+figure(7)
+subplot(2,3,1);
+greyscale(fspecial('disk', round(0.2*d_thres)));
+title("Kernel at 0.2 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.4*d_thres))
+subplot(2,3,2);
+greyscale(fspecial('disk', round(0.4*d_thres)));
+title("Kernel at 0.4 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.6*d_thres))
+subplot(2,3,3);
+greyscale(fspecial('disk', round(0.6*d_thres)));
+title("Kernel at 0.6 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(0.8*d_thres))
+subplot(2,3,4);
+greyscale(fspecial('disk', round(0.8*d_thres)));
+title("Kernel at 0.8 d_{thresh}");
 % pause(2);
-% fspecial('disk', round(d_thres))
+subplot(2,3,6);
+greyscale(fspecial('disk', round(d_thres)));
+title("Kernel at d_{thresh}");
 % pause(2);
 
 figure(8);
+subplot(1,2,1);
+color(flower);
+title("Original Image");
+subplot(1,2,2);
 color(img);
 title('Spatially varying blurred image');
 % imwrite(img, '../images/flower_blurred.jpg');

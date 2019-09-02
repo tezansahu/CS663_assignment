@@ -86,4 +86,5 @@ for i=1:1:chan
         waitbar(double(i-1)/double(chan) + (double(D_row))/(3 * double(size(D, 1)))); 
     end
 end
+close(wait);
 end
