@@ -1,8 +1,9 @@
 function [out_img] = myMeanShiftSegmentation(inp_img, spatial_bw, intensity_bw, no_neighbours, max_iterations)
 %MYMEANSHIFTSEGMENTATION Summary of this function goes here
 %   Detailed explanation goes here
+resize_factor = 1; % No resizing done as running fairly quickly
 original_img = im2double(inp_img);
-inp_img = imresize(original_img, 1);
+inp_img = imresize(original_img, resize_factor); 
 out_img = inp_img;
 
 no_rows = size(inp_img, 1);
@@ -48,8 +49,8 @@ for i=1:no_rows
     end
 end
 close(wait);
-out_img = imresize(out_img, 1);
+out_img = imresize(out_img, resize_factor);
 imshow(out_img);
-
+close all;
 end
 
