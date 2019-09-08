@@ -43,7 +43,7 @@ img = imread("../data/flower.png");
 h_space = 16;
 h_color = 0.85;
 num_neighbors = 100;
-max_iter = 25;
+max_iter = 30;
 
 out_img = myMeanShiftSegmentation(img, h_space, h_color, num_neighbors, max_iter);
 image = Image("../images/flower.png");
@@ -83,7 +83,7 @@ T0 = Text("Parameters Used:");
 T1 = Text("Gaussian kernel bandwidth for the color feature: " + num2str(h_color));
 T2 = Text("Gaussian kernel bandwidth for the spatial feature: " + num2str(h_space));
 T3 = Text("Number of iterations: " + num2str(max_iter));
-T4 = Text("Time taken to execute: "+toc);
+T4 = Text("Number of Nearest Neighbors considered: "+ num2str(num_neighbors));
 
 T0.Bold = true;
 T0.FontSize = '18';
@@ -94,7 +94,7 @@ T4.FontSize = '14';
 
 sec.Title = T0;
 
-ul = UnorderedList({T1, T2, T3});
+ul = UnorderedList({T1, T2, T4, T3});
 add(sec, ul);
 add(R, sec);
 % add(R, T1)
