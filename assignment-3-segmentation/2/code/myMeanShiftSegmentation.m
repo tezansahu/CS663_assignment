@@ -29,14 +29,14 @@ while(no_iterations < max_iterations)
         attributes(i, 3:5) = sum(weight_arr.*temp_attributes(nearest_neigh(i,:),3:5))/sum_weights;
     end
     no_iterations = no_iterations + 1;
-    for i=1:no_rows
-        for j=1:no_cols
-            out_img(i,j,1) = attributes((i-1)*no_cols+j,3);
-            out_img(i,j,2) = attributes((i-1)*no_cols+j,4);
-            out_img(i,j,3) = attributes((i-1)*no_cols+j,5);
-        end
-    end
-    imshow(out_img);
+%     for i=1:no_rows
+%         for j=1:no_cols
+%             out_img(i,j,1) = attributes((i-1)*no_cols+j,3);
+%             out_img(i,j,2) = attributes((i-1)*no_cols+j,4);
+%             out_img(i,j,3) = attributes((i-1)*no_cols+j,5);
+%         end
+%     end
+%     imshow(out_img);
 
     waitbar(double(no_iterations)/double(max_iterations)); 
 end
@@ -50,7 +50,7 @@ for i=1:no_rows
 end
 close(wait);
 out_img = imresize(out_img, resize_factor);
-imshow(out_img);
-close all;
+% imshow(out_img);
+% close all;
 end
 

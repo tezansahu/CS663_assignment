@@ -40,10 +40,10 @@ sec.Title = T;
 tic;
 
 img = imread("../data/flower.png");
-h_space = 16;
-h_color = 0.85;
-num_neighbors = 100;
-max_iter = 25;
+h_space = 100;
+h_color = 1;
+num_neighbors = 200;
+max_iter = 15;
 
 out_img = myMeanShiftSegmentation(img, h_space, h_color, num_neighbors, max_iter);
 image = Image("../images/flower.png");
