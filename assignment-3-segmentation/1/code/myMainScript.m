@@ -6,7 +6,7 @@ R = Report('Report 3.1: Harris Corner Detection', 'pdf');
 open(R)
 cd ../code/
 
-T = Text("Mean Shift Segmentation");
+T = Text("Assignment 3: Segmentation");
 T.Bold = true;
 T.FontSize = '26';
 headingObj = Heading1(T);
@@ -114,7 +114,7 @@ T4.FontSize = '14';
 sec.Title = T0;
 
 ul = UnorderedList({T1, T2, T3});
-
+add(sec, ul);
 add(R, sec);
 
 close(R)

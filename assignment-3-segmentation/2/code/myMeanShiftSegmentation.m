@@ -38,7 +38,7 @@ while(no_iterations < max_iterations)
     end
     imshow(out_img);
 
-    waitbar(no_iterations/max_iterations); 
+    waitbar(double(no_iterations)/double(max_iterations)); 
 end
 
 for i=1:no_rows

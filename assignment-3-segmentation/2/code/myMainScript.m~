@@ -40,8 +40,8 @@ sec.Title = T;
 tic;
 
 img = imread("../data/flower.png");
-h_space = 16;
-h_color = 0.85;
+h_space = 15;
+h_color = 0.9;
 num_neighbors = 100;
 max_iter = 25;
 
@@ -62,20 +62,17 @@ toc;
 
 add(sec, Figure(fig1));
 add(sec, caption);
-
+add(R, sec);
 
 fig2 = figure(2);
 subplot(1,2,1);
-plotIntensities(double(img)/255);
+plotIntensities(img);
 title("Original Pixel Intensities");
 subplot(1,2,2);
 plotIntensities(out_img);
 title("Pixel Intensities after Segmentation");
-caption = Paragraph("Fig 2: Pixel intensities before & after applying segmentation");
+caption = Paragraph("Fig 2: Mean Shift Segmentation applied to flower.png");
 caption.Style = {HAlign('center')};
-add(sec, Figure(fig2));
-add(sec, caption);
-add(R, sec);
 
 
 sec = Section;
