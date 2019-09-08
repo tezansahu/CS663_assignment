@@ -1,6 +1,6 @@
 function [dX, dY, eig1, eig2, cornerness] = myHarrisCornerDetector(img, sigma_1, sigma_2, k)
 
-    G1 = fspecial('gaussian', 5, sigma_1);
+    G1 = fspecial('gaussian', 2*floor(sigma_1 * 3) + 1, sigma_1);
     [dG1_dx, dG1_dy] = gradient(G1);
     % For x & y derivatives
     dX = conv2(img, dG1_dx, 'same');
@@ -10,7 +10,7 @@ function [dX, dY, eig1, eig2, cornerness] = myHarrisCornerDetector(img, sigma_1,
     dYY = dY .* dY;
     dXY = dX .* dY;
     
-    gauss_smooth = fspecial('gaussian', 5, sigma_2);
+    gauss_smooth = fspecial('gaussian', 2*floor(sigma_2 * 3) + 1, sigma_2);
     Ixx = conv2(dXX, gauss_smooth, 'same');
     Iyy = conv2(dYY, gauss_smooth, 'same');
     Ixy = conv2(dXY, gauss_smooth, 'same');
