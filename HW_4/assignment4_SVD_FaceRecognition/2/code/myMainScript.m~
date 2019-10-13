@@ -37,7 +37,6 @@ for k_idx = 1:len_k
     I = reshape(reconst_img,[],92);
     subplot(3,3,k_idx), imshow(I);
 end
-
 % Plotting first 25 eigenfaces
 figure(2);
 for k=1:25
