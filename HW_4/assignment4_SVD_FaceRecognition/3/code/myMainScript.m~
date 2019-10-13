@@ -1,0 +1,188 @@
+%% MyMainScript
+
+tic;
+
+% Training
+N = 32*6; d = 112*92;
+X = zeros(d, N); % Matrix of all the images d x N
+x_bar = zeros(d, 1); % Average image d x 1
+cd ../../..;
+for i=1:32
+    D = strcat('ORL_dataset/s',int2str(i));
+    S = dir(fullfile(D,'*.pgm'));
+    for j=1:6
+        F = fullfile(D, S(j).name);
+        I = im2double(imread(F));
+        X(:, (i-1)*6+j) = I(:);
+        x_bar = x_bar + I(:);
+    end
+end
+x_bar = x_bar./N;
+for i=1:N
+    X(:, i) = X(:, i) - x_bar;
+end
+
+[U, ~, ~] = svd(X, 0); % U-Left singular vectors d x N; S-Singular value matrix d x N; [U, S, V]
+
+k = 20;
+% For k largest eigenvalues
+U_k = U(:, 1:k); % d x k
+alpha_k = U_k'*X; % Eigencoefficients k x N
+
+deviation_per_person = zeros(k,32); % Deviation from eigencoefficient per person
+
+for i=1:32
+    for j=1:5
+        for m=j+1:6
+            if norm(alpha_k(:,(i-1)*6+j) - alpha_k(:,(i-1)*6+m)) > deviation_per_person(:,i)
+                deviation_per_person(:,i) = norm(alpha_k(:,(i-1)*6+j) - alpha_k(:,(i-1)*6+m));
+            end
+        end        
+    end
+end
+
+thres_devn = mean(deviation_per_person);
+
+% Testing for false negatives
+test_N = 32*4;
+false_neg = 0;
+for i=1:32 
+    D = strcat('ORL_dataset/s',int2str(i));
+    S = dir(fullfile(D,'*.pgm'));
+    for j=7:10
+        F = fullfile(D, S(j).name);
+        I = im2double(imread(F));
+        z_p = I(:) - x_bar; % Mean probe image
+        alpha_p = U_k'*z_p; % Eigencoefficient of probe image
+        min_index = 1;
+        min_dist = norm(alpha_p - alpha_k(:,1));
+        for l = 2:N
+            if norm(alpha_p - alpha_k(:,l)) < min_dist
+                min_dist = norm(alpha_p - alpha_k(:,l));
+            end
+        end
+        if min_dist > thres_devn
+            false_neg = false_neg + 1;
+        end
+    end
+end
+false_neg = false_neg/test_N;
+fprintf ('\nFor k= %d, false negative rate = %f',k,100*false_neg);
+
+% Testing for false negatives
+test_N = 8*10;
+false_pos = 0;
+for i=32:40 
+    D = strcat('ORL_dataset/s',int2str(i));
+    S = dir(fullfile(D,'*.pgm'));
+    for j=1:10
+        F = fullfile(D, S(j).name);
+        I = im2double(imread(F));
+        z_p = I(:) - x_bar; % Mean probe image
+        alpha_p = U_k'*z_p; % Eigencoefficient of probe image
+        min_index = 1;
+        min_dist = norm(alpha_p - alpha_k(:,1));
+        for l = 2:N
+            if norm(alpha_p - alpha_k(:,l)) < min_dist
+                min_dist = norm(alpha_p - alpha_k(:,l));
+            end
+        end
+        if min_dist > thres_devn
+            false_pos = false_pos + 1;
+        end
+    end
+end
+false_pos = false_pos/test_N;
+fprintf ('\nFor k= %d, false negative rate = %f',k,100*false_pos);
+
+toc;
+
+
+
+%%
+
+clear;
+clc;
+
+k = 50;
+
+N = 32*6;
+d = 112*92;
+A = zeros(d,N);
+id = zeros(N,1);
+count = 0;
+for i=1:32
+    for j=1:6
+        fname = sprintf ('s%d\\%d.pgm',i,j);
+        im = double(imread(fname));   
+        count = count+1;
+        A(:,count) = im(:);
+        id(count) = i; % record the identity of the person
+    end
+end
+meanA = mean(A,2);
+A = A - repmat(meanA,1,N);
+L = A'*A; % C = A*A' would be too big
+[V,D] = eig(L);
+V = A*V; % if v is an eigvec of L, then Av is an eigvec of C with the same eigenvalue
+% multiplying v by Av destroys its unit-normality property, so we divide it
+% by its magnitude as below
+for i=1:N, V(:,i) = V(:,i)/norm(V(:,i)); end; 
+
+% matlab stores eigenvectors in increasing order of eigenvalues. To make it convenient take
+% first k eigenvectors, we will reverse the order of the columns of V
+V = V(:,end:-1:1);
+% compute eigencoefficients
+eigcoeffs_training = V'*A;
+
+%%% we will pick the threshold tau for verification as follows: Consider person 'i'. For all
+%%% pairs of images belonging to the same person 'i', we will compute the
+%%% squared distance between eigencoefficients, and take the maximum out of
+%%% these values denoting it as taus(i). We will repeat this for every person, and then take the
+%%% median out of all these values, i.e. median(taus). You could also take
+%%% mean(taus) or max(tau).
+for i=1:32
+    eigcoeffs_training_perperson = eigcoeffs_training(:,id == i);    
+    dist = zeros(6,6);
+    for k1=1:6
+        for k2=1:6
+            dist(k1,k2) = sum(eigcoeffs_training_perperson(1:k,k1)-eigcoeffs_training_perperson(1:k,k2)).^2;
+        end
+    end
+    taus(i) = max(dist(:));    
+end
+tau = median(taus)*0.5;
+fprintf ('\nThreshold tau for verification = %f',tau);
+
+
+false_neg = 0;
+for i=1:32
+    for j=7:10
+        fname = sprintf ('s%d\\%d.pgm',i,j);
+        im = double(imread(fname));   
+        eigcoeffs_im = V'*(im(:)-meanA); % note: V as well as meanA was computed only in the training phase!
+        
+        diffs = eigcoeffs_training - repmat(eigcoeffs_im,1,N);
+        diffs = sum(diffs(1:k,:).^2,1);
+        [minval,minindex] = min(diffs); % id(minindex) is the identity of the nearest neighbor
+        if minval >= tau, false_neg = false_neg + 1; end;
+    end
+end
+false_neg = false_neg/(32*4);
+fprintf ('\nFor k= %d, false negative rate = %f',k,100*false_neg);
+
+false_pos = 0;
+for i=33:40
+    for j=1:10
+        fname = sprintf ('s%d\\%d.pgm',i,j);
+        im = double(imread(fname));   
+        eigcoeffs_im = V'*(im(:)-meanA); % note: V as well as meanA was computed only in the training phase!
+        
+        diffs = eigcoeffs_training - repmat(eigcoeffs_im,1,N);
+        diffs = sum(diffs(1:k,:).^2,1);
+        [minval,minindex] = min(diffs); % id(minindex) is the identity of the nearest neighbor
+        if minval < tau, false_pos = false_pos + 1; end;
+    end
+end
+false_pos = false_pos/(8*10);
+fprintf ('\nFor k= %d, false positive rate = %f',k,100*false_pos);

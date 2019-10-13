@@ -8,7 +8,7 @@ N = 32*6; d = 112*92;
 X = zeros(d, N); % Matrix of all the images d x N
 x_bar = zeros(d, 1); % Average image d x 1
 cd ../../..;
-for i=1:32 
+for i=1:32
     D = strcat('ORL_dataset/s',int2str(i));
     S = dir(fullfile(D,'*.pgm'));
     for j=1:6
@@ -25,7 +25,7 @@ end
 
 
 % Using svd function
-[U, ~, ~] = svd(X, 0); % U-Left singular vectors d x d; S-Singular value matrix d x N; [U, S, V]
+[U, ~, ~] = svd(X, 0); % U-Left singular vectors d x N; S-Singular value matrix d x N; [U, S, V]
 
 kvals = [1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 170];
 
@@ -151,6 +151,7 @@ for i=1:N
     X(:, i) = X(:, i) - x_bar;
 end
 
+% k is 1003
 [U_k, ~] = svds(X, 1003); % U-Left singular vectors d x k; S-Singular value matrix d x k; [U, S]
 
 kvals =  [1, 2, 3, 5, 10, 15, 20, 30, 50, 60, 65, 75, 100, 200, 300, 500, 1000];
