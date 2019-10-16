@@ -1,4 +1,54 @@
 %% MyMainScript
+clear;
+close all;
+
+import mlreportgen.report.*
+import mlreportgen.dom.*
+
+cd ../report/
+R = Report('Report 4.3: Detection of known and unknown faces', 'pdf');
+open(R)
+cd ../code/
+
+T = Text("Assignment 4: Mini Face Recognition System");
+T.Bold = true;
+T.FontSize = '26';
+headingObj = Heading1(T);
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading5("Tezan Sahu [170100035] & Siddharth Saha [170100025]");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading6("Due Date: 16/10/2019");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading3("Q3: Detection of known and unknown faces");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+%% Section 1
+sec = Section;
+T = Text("Detection Mechanism");
+T.Bold = true;
+T.FontSize = '18';
+
+sec.Title = T;
+
+textObj = Text("For a particular value of k, compute eigencoefficients corresponding to k highest eigenvalues for all persons in the training set. For different images of the same person in training set, find maximum norm of difference in eigencoefficient vectors. Let this be maximum deviation per person. Take a mean of the deviation per person across all persons and assign it as the threshold deviation (A scaling constant may be multiplied to optimise detection rates). If the minimum norm of difference in eigencoefficient vectors of the probe image with the training images is below the threshold value, the person is classified as a known face, otherwise unknown.");
+add(sec, textObj);
+
+add(R, sec);
+
+%% Section 2
+sec = Section;
+T = Text("Results");
+T.Bold = true;
+T.FontSize = '18';
+
+sec.Title = T;
 
 tic;
 
@@ -69,6 +119,8 @@ for i=1:32
 end
 false_neg = false_neg/test_N;
 fprintf ('For k= %d, false negative rate = %f\n',k,100*false_neg);
+textObj = Text("For k= "+num2str(k)+", false negative rate = "+num2str(100*false_neg)+"%");
+add(sec,textObj);
 
 % Testing for false negatives
 test_N = 8*10;
@@ -95,5 +147,13 @@ for i=33:40
 end
 false_pos = false_pos/test_N;
 fprintf ('For k= %d, false positive rate = %f\n',k,100*false_pos);
+textObj = Text("For k= "+num2str(k)+", false positive rate = "+num2str(100*false_pos)+"%");
+add(sec,textObj);
 
-toc;
+textObj = Text("Threshold distance value (Norm of deviation from eigencoefficients)= "+num2str(thres_devn));
+add(sec,textObj);
+
+add(R, sec);
+
+toc; % Nearly 1 second
+close(R);

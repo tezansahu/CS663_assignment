@@ -1,4 +1,40 @@
 %% MyMainScript
+clear;
+close all;
+
+import mlreportgen.report.*
+import mlreportgen.dom.*
+
+cd ../report/
+R = Report('Report 4.2: Reconstruction and Eigenfaces', 'pdf');
+open(R)
+cd ../code/
+
+T = Text("Assignment 4: Mini Face Recognition System");
+T.Bold = true;
+T.FontSize = '26';
+headingObj = Heading1(T);
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading5("Tezan Sahu [170100035] & Siddharth Saha [170100025]");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading6("Due Date: 16/10/2019");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+headingObj = Heading3("Q2: Reconstruction and Eigenfaces");
+headingObj.Style = { HAlign('center') };
+add(R, headingObj)
+
+sec = Section;
+T = Text("Plots");
+T.Bold = true;
+T.FontSize = '18';
+
+sec.Title = T;
 
 tic;
 %% ORL Dataset
@@ -30,20 +66,38 @@ kvals = [2, 10, 20, 50, 75, 100, 125, 150, 175];
 len_k = length(kvals);
 
 % Reconstructing first datapoint in X
-figure(1);
+fig1 = figure(1);
 for k_idx = 1:len_k
     k = kvals(k_idx);
     reconst_img = U_k(:,1:k)*alpha_k(1:k,1);
     I = reshape(reconst_img,[],92);
     subplot(3,3,k_idx), imshow(I);
+    title(strcat('k=',num2str(k)));
 end
 
+caption = Paragraph("Fig 1: Face Reconstruction of the first person in the ORL database using increasing values of k");
+caption.Style = {HAlign('center')};
+
+add(sec, Figure(fig1))
+add(sec, caption);
+
+
 % Plotting first 25 eigenfaces
-figure(2);
+fig2 = figure(2);
 for k=1:25
     I = histeq(reshape(U_k(:,k),[],92));
     subplot(5,5,k), imshow(I);
+    title(strcat('Order=',num2str(k)));
 end
 
+caption = Paragraph("Fig 2: Eigenfaces corresponding to the 25 largest eigenvalues");
+caption.Style = {HAlign('center')};
 
-toc;
+add(sec, Figure(fig2))
+add(sec, caption);
+
+
+add(R, sec);
+
+toc; % Nearly 11 seconds
+close(R);
