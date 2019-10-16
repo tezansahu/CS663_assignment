@@ -42,7 +42,7 @@ tic;
 N = 32*6; d = 112*92;
 X = zeros(d, N); % Matrix of all the images d x N
 x_bar = zeros(d, 1); % Average image d x 1
-cd ../../..;
+cd ../../..; % This is the location where we placed the Image Dataset
 for i=1:32 
     D = strcat('ORL_dataset/s',int2str(i));
     S = dir(fullfile(D,'*.pgm'));
@@ -51,7 +51,7 @@ for i=1:32
         I = im2double(imread(F));
         X(:, (i-1)*6+j) = I(:);
         x_bar = x_bar + I(:);
-    end
+    end 
 end
 x_bar = x_bar./N;
 for i=1:N
