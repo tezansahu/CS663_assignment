@@ -1,4 +1,4 @@
-%% MyMainScript
+%% Solution to A5 - Q3
 clear;
 close all;
 
@@ -24,7 +24,7 @@ f1 = [237 247];
 f2 = [278 267];
 r = 10; % radius
 H = ones(512);
-% Constructind ideal notch reject filter
+% Constructing ideal notch reject filter
 for i=1:size(H,1)
     for j=1:size(H,2)
         if ((f1(1)-i)^2+(f1(2)-j)^2) <= r^2

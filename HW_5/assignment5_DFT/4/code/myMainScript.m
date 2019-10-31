@@ -1,4 +1,4 @@
-%% MyMainScript
+%% Solution to A5 - Q4
 clear;
 close all;
 
