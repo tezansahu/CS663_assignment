@@ -6,7 +6,7 @@ im2 = im1;% Pass
 tic;
 patch_len = 7;
 img_len = size(im1, 1); % Assuming square image
-N = (img_len-patch_len+1)^2;
+N = (img_len - patch_len + 1)^2;
 P = zeros(patch_len^2, N); % 49 x 62500
 index = 1;
 
@@ -21,7 +21,7 @@ for j=1:(img_len-patch_len+1)
 end
 
 L = P*P'; % 49 x 49
-[W, ~] = eigs(L); % W-Right eigenvectors of L: 49 x 49
+[W, ~] = eig(L); % W-Right eigenvectors of L: 49 x 49
 alpha = W'*P; % Alpha coefficients of P: 49 x 62500
 %{
 alpha_ij notation:
@@ -30,11 +30,11 @@ j_th eigencoefficient-vertical iteration in 49
 %}
 avg_sq_alpha = zeros(patch_len^2, 1);
 alpha_denoised = alpha;
-% for j=1:patch_len^2
-%     sq_sum = sum(alpha(j,:).^2);
-%     avg_sq_alpha(j) = max(0, sq_sum/N - sig^2);
-%     alpha_denoised(j,:) = alpha(j,:)./(1 + sig^2/avg_sq_alpha(j));
-% end
+for j=1:patch_len^2
+    sq_sum = sum(alpha(j,:).^2);
+    avg_sq_alpha(j) = max(0, sq_sum/N - sig^2);
+    alpha_denoised(j,:) = alpha(j,:)./(1 + sig^2/avg_sq_alpha(j));
+end
 
 P_denoised = W*alpha_denoised; % 49 x 62500
 
