@@ -11,7 +11,7 @@ R = Report('Report 5.3: Notch filter', 'pdf');
 open(R)
 cd ../code/
 
-T = Text("Assignment 5: Image Restoration");
+T = Text("Assignment 5: Discrete Fourier Transform");
 T.Bold = true;
 T.FontSize = '26';
 headingObj = Heading1(T);
@@ -61,7 +61,7 @@ FZ = fftshift(fft2(Z));
 lFZ = log(abs(FZ)+1);
 fig2 = figure(2); imshow(lFZ, [min(lFZ(:)) max(lFZ(:))]); colormap('jet'); colorbar;
 title('Original Fourier Transform (Log Magnitude)');
-impixelinfo;
+% impixelinfo;
 pause(1);
 %report
 caption = Paragraph("Fig 2: Log Magnitude of Fourier Transform");
@@ -96,7 +96,7 @@ fig3 = figure(3); imshow(new_lFZ, [min(lFZ(:)) max(lFZ(:))]); colormap('jet'); c
 title('Fourier Transform after applying Notch Filter');
 pause(1);
 %report
-caption = Paragraph("Fig 3: Fourier Transform after applying Notch Filter");
+caption = Paragraph("Fig 3: Fourier Transform after applying Notch Filter (each of radius = 10)");
 caption.Style = {HAlign('center')};
 
 add(sec, Figure(fig3))

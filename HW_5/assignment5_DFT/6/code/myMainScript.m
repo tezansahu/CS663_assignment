@@ -12,7 +12,7 @@ R = Report('Report 5.6: FFT-Based Image Registration', 'pdf');
 open(R)
 cd ../code/
 
-T = Text("Assignment 5: DFT");
+T = Text("Assignment 5: Discrete Fourier Transform");
 T.Bold = true;
 T.FontSize = '26';
 headingObj = Heading1(T);

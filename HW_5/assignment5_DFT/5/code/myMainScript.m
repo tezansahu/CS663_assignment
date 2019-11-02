@@ -10,7 +10,7 @@ R = Report('Report 5.4: Image Denoising using PCA', 'pdf');
 open(R)
 cd ../code/
 
-T = Text("Assignment 5: Image Restoration");
+T = Text("Assignment 5: Discrete Fourier Transform");
 T.Bold = true;
 T.FontSize = '26';
 headingObj = Heading1(T);
