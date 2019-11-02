@@ -7,7 +7,7 @@ import mlreportgen.report.*
 import mlreportgen.dom.*
 
 cd ../report/
-R = Report('Report 5.4: Low Pass Filters', 'pdf');
+R = Report('Report 5.4: Implementation of Filters', 'pdf');
 open(R)
 cd ../code/
 
@@ -26,7 +26,7 @@ headingObj = Heading6("Due Date: 03/11/2019");
 headingObj.Style = { HAlign('center') };
 add(R, headingObj)
 
-headingObj = Heading3("Q4: Low Pass Filters");
+headingObj = Heading3("Q4: Implementation of Filters");
 headingObj.Style = { HAlign('center') };
 add(R, headingObj)
 
@@ -42,7 +42,6 @@ tic;
 %% Your code here
 cd ../data;
 Z = imread('barbara256.png');
-cd ../code;
 
 fig1 = figure(1); imshow(Z, [min(Z(:)) max(Z(:))]); 
 title('Original Image');
@@ -84,7 +83,7 @@ for i=1:size(H1,1)
     end
 end
 
-fig2 = figure(2);
+figure(2);
 new_FZ = FZ.*H1;
 new_Z = ifft2(ifftshift(new_FZ));
 final_img = new_Z(129:384, 129:384); % Removed padding
@@ -113,11 +112,11 @@ title('Gaussian (sd=80)');
 caption = Paragraph("Fig 2: Effect on original image corresponding to filters and parameters");
 caption.Style = {HAlign('center')};
 
-add(sec, Figure(fig2))
+add(sec, Figure(fig3))
 add(sec, caption);
 %report
 
-fig3 = figure(3); 
+figure(3); 
 subplot(2,2,1); imshow(H1, [min(H1(:)) max(H1(:))]); colormap('jet'); colorbar;
 title('Ideal (r=40)');
 subplot(2,2,2); imshow(H2, [min(H2(:)) max(H2(:))]); colormap('jet'); colorbar;
@@ -139,19 +138,7 @@ add(sec, caption);
 
 %report
 add(R, sec)
-
-sec = Section;
-T = Text("Commentary");
-T.Bold = true;
-T.FontSize = '18';
-
-sec.Title = T;
-
-txt = Text("Yes, they're different");
-add(sec, txt)
-add(R, sec)
-
 close(R)
 %report
 
-toc; % Nearly 11 sec
+toc;

@@ -1,14 +1,15 @@
 function [im2] = myPCADenoising1(im1, sig)
+% tic;
+% im1 = im2double(im1);
+im2 = im1; %Initialising
 
-im1 = im2double(im1);
-im2 = im1;% Pass
-
-tic;
 patch_len = 7;
 img_len = size(im1, 1); % Assuming square image
-N = (img_len - patch_len + 1)^2;
+N = (img_len - patch_len + 1)^2; % (256-7+1)^2 = 62500
 P = zeros(patch_len^2, N); % 49 x 62500
 index = 1;
+
+% P is collection of all N patches
 
 for j=1:(img_len-patch_len+1)
     for i=1:(img_len-patch_len+1)
@@ -45,12 +46,12 @@ for j=1:(img_len-patch_len+1)
         patch = reshape(P_denoised(:, index),[patch_len patch_len]);
         im2(i:i+patch_len-1, j:j+patch_len-1) = im2(i:i+patch_len-1, j:j+patch_len-1) + patch;
         freq_of_px(i:i+patch_len-1, j:j+patch_len-1) = freq_of_px(i:i+patch_len-1, j:j+patch_len-1) + 1;
-        % Iterates through entire row(i++)        
+        % Iterates through entire row(i++)
         index = index+1;
     end
     % And then goes to next row(j++)
 end
 im2 = im2./freq_of_px;
-toc;
+% toc;
 end
 
