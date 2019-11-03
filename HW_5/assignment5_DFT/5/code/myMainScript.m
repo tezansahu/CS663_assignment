@@ -304,9 +304,9 @@ im1 = sqrt(im1+3/8);
 shifted_im2 = myPCADenoising2(im1, 1/4);
 im2 = shifted_im2.^2 - 3/8;
 
-subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title({'b. Original Image', '(poissrnd(im/20))'}); impixelinfo;
-subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title({'b. Noisy Image', '(poissrnd(im/20))'}); impixelinfo;
-subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title({'b. Denoised Image', '(poissrnd(im/20))'}); impixelinfo;
+subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title({'b. Original Image', '(poissrnd(im/20))'}); 
+subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title({'b. Noisy Image', '(poissrnd(im/20))'}); 
+subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title({'b. Denoised Image', '(poissrnd(im/20))'}); 
 
 RMSE_23 = norm(im1-im_stream)/(norm(im_stream)*im_len)
 RMSE_24 = norm(im2-im_stream)/(norm(im_stream)*im_len)
@@ -320,10 +320,10 @@ add(sec, Figure(fig5))
 add(sec, caption);
 
 T_str = Text("For Stream");
-T1 = Text("Part a. RMSE of Noisy image: " + RMSE_11);
-T2 = Text("Part a. RMSE of Denoised image: " + RMSE_12);
-T3 = Text("Part b. RMSE of Noisy image: " + RMSE_21);
-T4 = Text("Part b. RMSE of Denoised image: " + RMSE_22);
+T1 = Text("Part a. RMSE of Noisy image: " + RMSE_13);
+T2 = Text("Part a. RMSE of Denoised image: " + RMSE_14);
+T3 = Text("Part b. RMSE of Noisy image: " + RMSE_23);
+T4 = Text("Part b. RMSE of Denoised image: " + RMSE_24);
 T1.FontSize = '14';
 T2.FontSize = '14';
 T3.FontSize = '14';
@@ -358,16 +358,15 @@ T.FontSize = '18';
 sec.Title = T;
 
 T_bar = Text("Effect of clamping the values in the noisy image 'im1' to the [0,255] range,:");
-T1 = Text("");
-T2 = Text("");
-T3 = Text("");
-T4 = Text("");
+T1 = Text("On denoising the noisy clamped stream.png image, an RMSE of 0.0105 is obtained compared to the earlier RMSE of 0.014588.");
+T2 = Text("This shows that the denoising after clamping noisy image values within the range of 0-255 helps in achieving a better denoising using PCA and can be considered as a correct approach.");
+T3 = Text("This could be explained by the fact that clamping the values forces the algorithm to stay within the original range of 0-255 & hence tends to decrease the variance of the noise, leading to better denoising.");
 T1.FontSize = '14';
 T2.FontSize = '14';
 T3.FontSize = '14';
 T4.FontSize = '14';
 
-ul = UnorderedList({T1, T2, T3, T4});
+ul = UnorderedList({T1, T2, T3});
 add(sec, T_bar);
 add(sec, ul);
 
