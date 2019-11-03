@@ -55,9 +55,9 @@ im1 = im_barbara + randn(size(im_barbara)) * 20;
 im2 = myPCADenoising1(im1, 20);
 
 fig1 = figure(1);
-subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image"); impixelinfo;
-subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); impixelinfo;
+subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image"); 
+subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); 
 
 RMSE_1 = norm(im1-im_barbara)/(norm(im_barbara))
 RMSE_2 = norm(im2-im_barbara)/(norm(im_barbara))
@@ -68,9 +68,9 @@ RMSE_2 = norm(im2-im_barbara)/(norm(im_barbara))
 im1 = im_stream + randn(size(im_stream)) * 20;
 im2 = myPCADenoising1(im1, 20);
 
-subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); impixelinfo;
-subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); impixelinfo;
+subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); 
+subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); 
 
 RMSE_3 = norm(im1-im_stream)/(norm(im_stream))
 RMSE_4 = norm(im2-im_stream)/(norm(im_stream))
@@ -119,9 +119,9 @@ im1 = im_barbara + randn(size(im_barbara)) * 20;
 im2 = myPCADenoising2(im1, 20);
 
 fig2 = figure(2);
-subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image"); impixelinfo;
-subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); impixelinfo;
+subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image");
+subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); 
 
 RMSE_1 = norm(im1-im_barbara)/(norm(im_barbara))
 RMSE_2 = norm(im2-im_barbara)/(norm(im_barbara))
@@ -132,9 +132,9 @@ RMSE_2 = norm(im2-im_barbara)/(norm(im_barbara))
 im1 = im_stream + randn(size(im_stream)) * 20;
 im2 = myPCADenoising2(im1, 20);
 
-subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); impixelinfo;
-subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); impixelinfo;
+subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); 
+subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Denoised Image"); 
 
 RMSE_3 = norm(im1-im_stream)/(norm(im_stream))
 RMSE_4 = norm(im2-im_stream)/(norm(im_stream))
@@ -183,9 +183,9 @@ im1 = im_barbara + randn(size(im_barbara)) * 20;
 im2 = myBilateralFiltering(im1./max(im1), 7, 1, 0.4);
 
 fig3 = figure(3);
-subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image"); impixelinfo;
-subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Bilateral Filtered Image"); impixelinfo;
+subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title("Original Image"); 
+subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Bilateral Filtered Image"); 
 
 % STREAM
 
@@ -193,9 +193,9 @@ subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title("Bilateral Filtered
 im1 = im_stream + randn(size(im_stream)) * 20;
 im2 = myBilateralFiltering(im1./max(im1), 7, 1, 0.4);
 
-subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); impixelinfo;
-subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); impixelinfo;
-subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Bilateral Filtered Image"); impixelinfo;
+subplot(234); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title("Original Image"); 
+subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title("Noisy Image"); 
+subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title("Bilateral Filtered Image"); 
 
 %report
 caption = Paragraph("Fig 3: Bilateral Filtering");
@@ -240,9 +240,9 @@ shifted_im2 = myPCADenoising2(im1, 1/4);
 im2 = shifted_im2.^2 - 3/8;
 
 fig4 = figure(4);
-subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title({'a. Original Image', '(poissrnd(im))'}); impixelinfo;
-subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title({'a. Noisy Image', '(poissrnd(im))'}); impixelinfo;
-subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title({'a. Denoised Image', '(poissrnd(im))'}); impixelinfo;
+subplot(231); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title({'a. Original Image', '(poissrnd(im))'}); 
+subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title({'a. Noisy Image', '(poissrnd(im))'}); 
+subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title({'a. Denoised Image', '(poissrnd(im))'}); 
 
 RMSE_11 = norm(im1-im_barbara)/(norm(im_barbara)*im_len)
 RMSE_12 = norm(im2-im_barbara)/(norm(im_barbara)*im_len)
@@ -253,9 +253,9 @@ im1 = sqrt(im1+3/8);
 shifted_im2 = myPCADenoising2(im1, 1/4);
 im2 = shifted_im2.^2 - 3/8;
 
-subplot(234); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title({'b. Original Image', '(poissrnd(im/20))'}); impixelinfo;
-subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title({'b. Noisy Image', '(poissrnd(im/20))'}); impixelinfo;
-subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title({'b. Denoised Image', '(poissrnd(im/20))'}); impixelinfo;
+subplot(234); imshow(im_barbara, [min(im_barbara(:)), max(im_barbara(:))]); title({'b. Original Image', '(poissrnd(im/20))'}); 
+subplot(235); imshow(im1, [min(im1(:)), max(im1(:))]); title({'b. Noisy Image', '(poissrnd(im/20))'}); 
+subplot(236); imshow(im2, [min(im2(:)), max(im2(:))]); title({'b. Denoised Image', '(poissrnd(im/20))'}); 
 
 RMSE_21 = norm(im1-im_barbara)/(norm(im_barbara)*im_len)
 RMSE_22 = norm(im2-im_barbara)/(norm(im_barbara)*im_len)
@@ -291,9 +291,9 @@ shifted_im2 = myPCADenoising2(im1, 1/4);
 im2 = shifted_im2.^2 - 3/8;
 
 fig5 = figure(5);
-subplot(231); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title({'a. Original Image', '(poissrnd(im))'}); impixelinfo;
-subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title({'a. Noisy Image', '(poissrnd(im))'}); impixelinfo;
-subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title({'a. Denoised Image', '(poissrnd(im))'}); impixelinfo;
+subplot(231); imshow(im_stream, [min(im_stream(:)), max(im_stream(:))]); title({'a. Original Image', '(poissrnd(im))'}); 
+subplot(232); imshow(im1, [min(im1(:)), max(im1(:))]); title({'a. Noisy Image', '(poissrnd(im))'}); 
+subplot(233); imshow(im2, [min(im2(:)), max(im2(:))]); title({'a. Denoised Image', '(poissrnd(im))'}); 
 
 RMSE_13 = norm(im1-im_stream)/(norm(im_stream)*im_len)
 RMSE_14 = norm(im2-im_stream)/(norm(im_stream)*im_len)
@@ -330,12 +330,12 @@ T3.FontSize = '14';
 T4.FontSize = '14';
 
 ul = UnorderedList({T1, T2, T3, T4});
-add(sec, T_bar);
+add(sec, T_str);
 add(sec, ul);
 
 T_bar = Text("Comparison between poissrnd(im) and poissrnd(im/20):");
-T1 = Text("The latter actually represents image acquisition with a lower acquisition time and hence lower brightness.");
-T2 = Text("We observe that denoising is highly successful in the latter case (corroborated by RMSE values).");
+T1 = Text("The latter [with poissonrnd(im/20)] actually represents image acquisition with a lower acquisition time and hence lower brightness.");
+T2 = Text("We observe that denoising is highly unsuccessful in the latter case (corroborated by RMSE values).");
 T3 = Text("One possible justification could be that as lower intensity brightness is captured, the magnitude of Poisson noise becomes more and more comparable.");
 T4 = Text("In addition, the Anscombe model is more accurate as I(signal variable) tends to infinity. Here we have drastically downscaled the pixel intensities leading to errors in the modelling assumption.");
 T1.FontSize = '14';
