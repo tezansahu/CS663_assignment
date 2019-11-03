@@ -1,7 +1,7 @@
 function [im2] = myPCADenoising1(im1, sig)
 % tic;
 % im1 = im2double(im1);
-im2 = im1; %Initialising
+im2 = zeros(size(im1,1)); %Initialising
 
 patch_len = 7;
 img_len = size(im1, 1); % Assuming square image

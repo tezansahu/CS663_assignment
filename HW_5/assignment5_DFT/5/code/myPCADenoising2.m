@@ -3,7 +3,7 @@ function [im_denoised] = myPCADenoising2(im1, sig)
 group_len = 31;
 padoffset = (group_len-1)/2;
 im1 = padarray(im1, [padoffset padoffset]); % 31 x 31 neighbourhood centred at top left corner of patch
-im2 = im1; %Initialising
+im2 = zeros(size(im1,1)); %Initialising
 
 patch_len = 7;
 img_len = size(im1, 1); % Assuming square image
